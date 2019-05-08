@@ -1,4 +1,4 @@
 
 DSCI project: Dollar&Stock
 
-member: EricKuan
+member: EricKuan Kevin
