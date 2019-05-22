@@ -1,6 +1,6 @@
 # -*-coding:utf-8-*-
 
-class MoneykData():
+class MoneyData():
 
     def quoteChange(timeLen):
 
