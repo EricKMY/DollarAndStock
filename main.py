@@ -1,7 +1,7 @@
 # -*-coding:utf-8-*-
 
-# from moudle.stockData import StockData
-# from moudle.moneyData import MoneyData
+import csv
+
 from moudle.finData import FinData
 from moudle.readMergeFile import ReadMergeFile
 
@@ -10,36 +10,27 @@ def main():
     mergeDict = ReadMergeFile.readFile()
     finData = FinData(mergeDict)
     quoteDailyChangeDict = finData.quoteChange('daily')
-    quoteWeeklyChangeDict = finData.quoteChange('weekly')
-    quoteMonthlyChangeDict = finData.quoteChange('monthly')
-    quoteQuartlyChangeDict = finData.quoteChange('quartly')
+
+    with open('quoteDailyChange.csv', 'w') as f:
+        for key in quoteDailyChangeDict.keys():
+            f.write("%s,%s\n"%(key,quoteDailyChangeDict[key]))
+
     # for key, value in quoteDailyChangeDict.items():
     #     print(value)
-    positive = 0
-    negative = 0
 
-    for key, value in quoteDailyChangeDict.items():
+    # positive = 0
+    # negative = 0
 
-        if value['stockChange'] * value['dollarChange'] > 0:
-            positive += 1
+    # for key, value in quoteDailyChangeDict.items():
+
+    #     if value['stockChange'] * value['dollarChange'] > 0:
+    #         positive += 1
         
-        elif value['stockChange'] * value['dollarChange'] < 0:
-            negative += 1
+    #     elif value['stockChange'] * value['dollarChange'] < 0:
+    #         negative += 1
             
-    print(positive)
-    print(negative)
+    # print(positive)
+    # print(negative)
 
-    # result = compare(stockQuoteChange, moneyQuoteChange, weeks)
-
-# def compare(stockQuoteChange, moneyQuoteChange, dateList):
-#     result = {}
-
-#     for date in dateList:
-#         if moneyQuoteChange[date] == 0:
-#             result[date] = 0
-#         else:
-#             result[date] = stockQuoteChange[date] / moneyQuoteChange[date]
-    
-#     return result
 
 print(main())
