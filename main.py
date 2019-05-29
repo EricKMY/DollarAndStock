@@ -7,9 +7,9 @@ from moudle.readMergeFile import ReadMergeFile
 def main():
 
     mergeDict = ReadMergeFile.readFile()
-    for key, value in mergeDict.items() :
-         print(value)
-    # stockQuoteChange = StockData.quoteChange('weekly')
+    quoteChange = stockQuoteChange = StockData.quoteChange('daily', mergeDict)
+    for key, value in quoteChange.items():
+        print(value)
     # moneyQuoteChange = MoneyData.quoteChange('weekly')
 
     # result = compare(stockQuoteChange, moneyQuoteChange, weeks)
