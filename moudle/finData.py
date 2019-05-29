@@ -29,8 +29,7 @@ class FinData():
     
     def dailyChange(self):
 
-        i = 0
-        quoteChange = {}
+        quoteChange = []
         mergeDict = self.mergeDict
         oldStockClose = float(mergeDict['0']['Close_SP'])
         oldDollarClose = float(mergeDict['0']['Close_US'])
@@ -47,29 +46,15 @@ class FinData():
             dollarChange = (newDollarClose - oldDollarClose) / oldDollarClose * 100
             oldDollarClose = float(value['Close_US'])
 
-            quoteChange[i] = {'date': date ,'stockChange': stockChange, 'dollarChange': dollarChange}
-            i += 1
+            quoteChange.append({'date': date ,'stockChange': stockChange, 'dollarChange': dollarChange})
 
         return quoteChange
     
-    # def weeklyChange(self):
-
-    #     i = 0
-    #     quoteChange = {}
-    #     mergeDict = self.mergeDict
-    #     oldStockClose = float(mergeDict['0']['Close_SP'])
-    #     oldDollarClose = float(mergeDict['0']['Close_US'])
-
-
-    #     return quoteChange
-
-    # def checkWeek(date):
-    #     pass
     
     def monthlyChange(self):
         
         i = 0
-        quoteChange = {}
+        quoteChange = []
         mergeDict = self.mergeDict
         oldStockClose = float(mergeDict['0']['Close_SP'])
         oldDollarClose = float(mergeDict['0']['Close_US'])
