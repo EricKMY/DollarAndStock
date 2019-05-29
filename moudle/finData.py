@@ -29,7 +29,6 @@ class FinData():
     
     def dailyChange(self):
 
-        
         i = 0
         quoteChange = {}
         mergeDict = self.mergeDict

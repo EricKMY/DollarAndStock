@@ -9,10 +9,25 @@ def main():
 
     mergeDict = ReadMergeFile.readFile()
     finData = FinData(mergeDict)
-    quoteDailyChange = finData.quoteChange('daily')
-    for key, value in quoteDailyChange.items():
-        print(value)
-    # moneyQuoteChange = MoneyData.quoteChange('weekly')
+    quoteDailyChangeDict = finData.quoteChange('daily')
+    quoteWeeklyChangeDict = finData.quoteChange('weekly')
+    quoteMonthlyChangeDict = finData.quoteChange('monthly')
+    quoteQuartlyChangeDict = finData.quoteChange('quartly')
+    # for key, value in quoteDailyChangeDict.items():
+    #     print(value)
+    positive = 0
+    negative = 0
+
+    for key, value in quoteDailyChangeDict.items():
+
+        if value['stockChange'] * value['dollarChange'] > 0:
+            positive += 1
+        
+        elif value['stockChange'] * value['dollarChange'] < 0:
+            negative += 1
+            
+    print(positive)
+    print(negative)
 
     # result = compare(stockQuoteChange, moneyQuoteChange, weeks)
 
