@@ -1,15 +1,18 @@
 # -*-coding:utf-8-*-
 
-from moudle.stockData import StockData
-from moudle.moneyData import MoneyData
+# from moudle.stockData import StockData
+# from moudle.moneyData import MoneyData
+from moudle.finData import FinData
 from moudle.readMergeFile import ReadMergeFile
 
 def main():
 
     mergeDict = ReadMergeFile.readFile()
-    quoteChange = stockQuoteChange = StockData.quoteChange('daily', mergeDict)
-    for key, value in quoteChange.items():
-        print(value)
+    stockDailyChange = FinData.quoteChange(mergeDict, 'daily', 'stock')
+    moneyDailyChange = FinData.quoteChange(mergeDict, 'daily', 'dollar')
+    # quoteChange = stockQuoteChange = StockData.quoteChange('daily', mergeDict)
+    # for key, value in quoteChange.items():
+    #     print(value)
     # moneyQuoteChange = MoneyData.quoteChange('weekly')
 
     # result = compare(stockQuoteChange, moneyQuoteChange, weeks)
