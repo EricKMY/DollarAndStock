@@ -6,27 +6,33 @@ import matplotlib.pyplot as plt
 
 from moudle.finData import FinData
 from moudle.readMergeFile import ReadMergeFile
+from moudle.regression import Regression
 
 def main():
 
     mergeDict = ReadMergeFile.readFile()
     finData = FinData(mergeDict)
-    dailyChangeList = finData.quoteChange('daily')
+    dailyChangeList = finData.quoteDailyChangePerYear()
+    regression = Regression(dailyChangeList)
+    coef, intercept = regression.cauculatePerYear()
 
-    total = []
-    positive = []
-    negative = []
-
-    for dailyChange in dailyChangeList:
-        dot = dailyChange['stockChange'] * dailyChange['dollarChange']
-        total.append(dot)
-        if dot > 0:
-            positive.append(dot)
-        elif dot < 0:
-            negative.append(dot)
+    print(coef, intercept)
     
-    print(len(positive)/len(total))
-    print(len(negative)/len(total))
+
+    # total = []
+    # positive = []
+    # negative = []
+
+    # for dailyChange in dailyChangeList:
+    #     dot = dailyChange['stockChange'] * dailyChange['dollarChange']
+    #     total.append(dot)
+    #     if dot > 0:
+    #         positive.append(dot)
+    #     elif dot < 0:
+    #         negative.append(dot)
+    
+    # print(len(positive)/len(total))
+    # print(len(negative)/len(total))
 
     # csv_columns = ['date','stockChange','dollarChange']
     # csv_file = "quoteDailyChange.csv"

@@ -4,32 +4,10 @@ class FinData():
 
     def __init__(self, mergeDict):
         self.mergeDict = mergeDict
-
-    def quoteChange(self, timeLen):
-
-        if timeLen == 'daily':
-            quoteChange = self.dailyChange()
-
-        elif timeLen == 'weekly':
-            pass
-        
-        elif timeLen == 'monthly':
-            quoteChange = self.monthlyChange()
-            
-        elif timeLen == 'quartly':
-            pass
-        
-        elif timeLen == 'yearly':
-            pass
-
-        else:
-            print('timeLen error: ' + timeLen)
-
-        return quoteChange
     
-    def dailyChange(self):
+    def quoteDailyChange(self):
 
-        quoteChange = []
+        quoteDailyChange = []
         mergeDict = self.mergeDict
         oldStockClose = float(mergeDict['0']['Close_SP'])
         oldDollarClose = float(mergeDict['0']['Close_US'])
@@ -46,37 +24,39 @@ class FinData():
             dollarChange = (newDollarClose - oldDollarClose) / oldDollarClose * 100
             oldDollarClose = float(value['Close_US'])
 
-            quoteChange.append({'date': date ,'stockChange': stockChange, 'dollarChange': dollarChange})
+            quoteDailyChange.append({'date': date ,'stockChange': stockChange, 'dollarChange': dollarChange})
 
-        return quoteChange
+        return quoteDailyChange
     
+    def quoteDailyChangePerYear(self):
     
-    def monthlyChange(self):
+        yearList = ['1986', '1987', '1988', '1989', '1990', '1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018']
         
-        i = 0
-        quoteChange = []
+        quoteDailyChange = []
         mergeDict = self.mergeDict
-        oldStockClose = float(mergeDict['0']['Close_SP'])
-        oldDollarClose = float(mergeDict['0']['Close_US'])
 
-        for key, value in mergeDict.items():
+        for year in yearList:
+
+            quoteDailyChangePerYear = {}
+
+            oldStockClose = float(mergeDict['0']['Close_SP'])
+            oldDollarClose = float(mergeDict['0']['Close_US'])
+
+            for key, value in mergeDict.items():
+
+                date = value['Date']
+                if date.find(year) != -1:
+
+                    newStockClose = float(value['Close_SP'])
+                    stockChange = (newStockClose - oldStockClose) / oldStockClose * 100
+                    oldStockClose = float(value['Close_SP'])
+
+                    newDollarClose = float(value['Close_US'])
+                    dollarChange = (newDollarClose - oldDollarClose) / oldDollarClose * 100
+                    oldDollarClose = float(value['Close_US'])
+
+                    quoteDailyChangePerYear[year] = {'date': date ,'stockChange': stockChange, 'dollarChange': dollarChange}
             
-            if self.isEndOfMonth(value['Date']):
+            quoteDailyChange.append(quoteDailyChangePerYear)
 
-                newStockClose = float(value['Close_SP'])
-                stockChange = (newStockClose - oldStockClose) / oldStockClose * 100
-                oldStockClose = float(value['Close_SP'])
-
-                newDollarClose = float(value['Close_US'])
-                dollarChange = (newDollarClose - oldDollarClose) / oldDollarClose * 100
-                oldDollarClose = float(value['Close_US'])
-
-                quoteChange.append({'date': date ,'stockChange': stockChange, 'dollarChange': dollarChange})
-
-    
-    def isEndOfMonth(date):
-
-        date = date.split('/')
-
-
-        return True
+        return quoteDailyChange
