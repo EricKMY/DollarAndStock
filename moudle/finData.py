@@ -71,7 +71,7 @@ class FinData():
                 dollarChange = (newDollarClose - oldDollarClose) / oldDollarClose * 100
                 oldDollarClose = float(value['Close_US'])
 
-                quoteChange[i] = {'date': value['Date'] ,'stockChange': stockChange, 'dollarChange': dollarChange}
+                quoteChange.append({'date': date ,'stockChange': stockChange, 'dollarChange': dollarChange})
 
     
     def isEndOfMonth(date):
