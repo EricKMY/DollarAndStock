@@ -17,11 +17,11 @@ class FinData():
             date = value['Date']
 
             newStockClose = float(value['Close_SP'])
-            stockChange = (newStockClose - oldStockClose) / oldStockClose * 100
+            stockChange = (newStockClose - oldStockClose) / oldStockClose
             oldStockClose = float(value['Close_SP'])
 
             newDollarClose = float(value['Close_US'])
-            dollarChange = (newDollarClose - oldDollarClose) / oldDollarClose * 100
+            dollarChange = (newDollarClose - oldDollarClose) / oldDollarClose
             oldDollarClose = float(value['Close_US'])
 
             quoteDailyChange.append({'date': date ,'stockChange': stockChange, 'dollarChange': dollarChange})
@@ -37,7 +37,7 @@ class FinData():
 
         for year in yearList:
 
-            quoteDailyChangePerYear = {}
+            quoteDailyChangePerYear = []
 
             oldStockClose = float(mergeDict['0']['Close_SP'])
             oldDollarClose = float(mergeDict['0']['Close_US'])
@@ -48,14 +48,14 @@ class FinData():
                 if date.find(year) != -1:
 
                     newStockClose = float(value['Close_SP'])
-                    stockChange = (newStockClose - oldStockClose) / oldStockClose * 100
+                    stockChange = (newStockClose - oldStockClose) / oldStockClose
                     oldStockClose = float(value['Close_SP'])
 
                     newDollarClose = float(value['Close_US'])
-                    dollarChange = (newDollarClose - oldDollarClose) / oldDollarClose * 100
+                    dollarChange = (newDollarClose - oldDollarClose) / oldDollarClose
                     oldDollarClose = float(value['Close_US'])
 
-                    quoteDailyChangePerYear[year] = {'date': date ,'stockChange': stockChange, 'dollarChange': dollarChange}
+                    quoteDailyChangePerYear.append({'date': date ,'stockChange': stockChange, 'dollarChange': dollarChange})
             
             quoteDailyChange.append(quoteDailyChangePerYear)
 
