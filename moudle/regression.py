@@ -17,7 +17,7 @@ class Regression():
 
         for key, val in self.dataDict.items():
 
-            value = val['dollarChange']
+            value = val['us10Change'] * 100
             XList.append([value])
             yList.append(val['stockChange'])
 
@@ -39,13 +39,15 @@ class Regression():
         r_squared = lm.score(X, y)
         adj_r_squared = r_squared - (1 - r_squared) * (X.shape[1] / (X.shape[0] - X.shape[1] - 1))
         p_value = f_regression(X, y)[1]
-        print(mse, r_squared, p_value)
+        print(mse, r_squared*100, p_value)
 
     def pict(self):
 
         plt.scatter(self.X, self.y, color='black')
         plt.plot(self.X, self.lm.predict(self.X), color='blue')
-        plt.savefig('totaldollar')
+        plt.xlabel('10-Year US Bond Yield')
+        plt.ylabel('S&P500 daily change (%)')
+        plt.savefig('totalUS10')
 
 
 

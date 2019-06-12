@@ -18,7 +18,7 @@ def main():
     lm = reg.cauculate()
     print(lm.coef_, lm.intercept_)
     reg.score()
-#     reg.pict()
+    reg.pict()
 #     dailyChangeList = finData.quoteDailyChangePerYear()
 #     for data in dailyChangeList:
 #         reg = Regression(data)
